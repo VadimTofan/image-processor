@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>Image Analysis</h1>
+
+  <div class="upload-section">
+    <input
+      type="file"
+      accept="image/png,image/jpeg,image/jpg,image/webp"
+      (change)="onFileSelected($event)"
+      #fileInput
+      class="file-input"
+    />
+
+    <button type="button" (click)="fileInput.click()" class="upload-btn">
+      Select Image
+    </button>
+
+    @if (previewUrl()) {
+    <div class="preview">
+      <img [src]="previewUrl()" alt="Preview" />
+    </div>
+    } @if (previewUrl()) {
+    <button
+      type="button"
+      (click)="analyzeImage()"
+      [disabled]="service.analysisResource.isLoading()"
+      class="analyze-btn"
+    >
+      Describe Image
+    </button>
+    }
+  </div>
+
+  @if (service.analysisResource.isLoading()) {
+  <div class="loading">
+    <p>Analyzing image...</p>
+  </div>
+  } @if (service.analysisResource.hasValue()) {
+  <div class="result">
+    <h2>Analysis Result</h2>
+    <p>{{ service.analysisResource.value().description }}</p>
+    <div class="metadata">
+      <small
+        >File: {{ service.analysisResource.value().metadata.filename }}</small
+      >
+      <small
+        >Size:
+        {{ formatBytes(service.analysisResource.value().metadata.size) }}</small
+      >
+    </div>
+  </div>
+  } @if (service.analysisResource.error()) {
+  <div class="error">
+    <p>Error: Failed to analyze image. Please try again.</p>
+  </div>
+  }
+</div>
