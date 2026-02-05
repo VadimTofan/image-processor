@@ -25,7 +25,6 @@ export class ImageUploadComponent {
       };
       reader.readAsDataURL(file);
 
-      // Store the file for later analysis
       this.selectedFile = file;
     }
   }
