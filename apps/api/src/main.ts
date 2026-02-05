@@ -5,14 +5,14 @@ import cors from 'cors';
 
 const app = express();
 const port = 3000;
+
 app.use(cors());
+app.use(express.json());
 
 const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const filetypes = /jpeg|jpg|png|webp/;
     const mimetype = filetypes.test(file.mimetype);
@@ -31,16 +31,14 @@ const upload = multer({
   },
 });
 
-app.use(express.json());
-
 app.post('/api/analyze', (req: Request, res: Response) => {
   upload.single('image')(req, res, async (err) => {
     if (err) {
-      if (err.code === 'LIMIT_FILE_SIZE') {
+      if (err.code === 'LIMIT_FILE_SIZE')
         return res
           .status(400)
           .json({ error: 'File too large. Max size is 5MB.' });
-      }
+
       return res.status(400).json({ error: err.message });
     }
 
