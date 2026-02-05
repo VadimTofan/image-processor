@@ -2,7 +2,11 @@
   "name": "@org/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:api": "nx build api",
+    "start:api": "node dist/apps/api/main.js",
+    "build:frontend": "nx build frontend"
+  },
   "private": true,
   "dependencies": {
     "@angular-devkit/build-angular": "21.1.1",
