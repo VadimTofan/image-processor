@@ -1,16 +1,19 @@
-<header class="app-header">
-  <div class="container">
-    <h1>{{ title }}</h1>
+<header class="app-layout__header">
+  <div class="app-layout__container">
+    <h1 class="app-layout__title">{{ title }}</h1>
   </div>
 </header>
 
-<main class="app-main">
+<main class="app-layout__main">
   <router-outlet></router-outlet>
 </main>
 
-<footer class="app-footer">
-  <div class="container">
-    <p>© 2026 Vadim Tofan - Showcasing Angular Monorepo</p>
-    <p>Frontend (Angular) + Backend (Express)</p>
+<footer class="app-layout__footer">
+  <div class="app-layout__container">
+    <p class="app-layout__text">
+      © 2026 Vadim Tofan - Showcasing Angular Monorepo
+    </p>
+
+    <p class="app-layout__text">Frontend (Angular) + Backend (Express)</p>
   </div>
 </footer>

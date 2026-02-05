@@ -1,29 +1,33 @@
-<div class="container">
-  <h1>Image Analysis</h1>
+<section class="analyzer">
+  <h1 class="analyzer__title">Image Analysis</h1>
 
-  <div class="upload-section">
+  <div class="analyzer__upload">
     <input
       type="file"
       accept="image/png,image/jpeg,image/jpg,image/webp"
       (change)="onFileSelected($event)"
       #fileInput
-      class="file-input"
+      class="analyzer__file-input"
     />
 
-    <button type="button" (click)="fileInput.click()" class="upload-btn">
+    <button
+      type="button"
+      (click)="fileInput.click()"
+      class="analyzer__button analyzer__button--upload"
+    >
       Select Image
     </button>
 
     @if (previewUrl()) {
-    <div class="preview">
-      <img [src]="previewUrl()" alt="Preview" />
+    <div class="analyzer__preview">
+      <img [src]="previewUrl()" alt="Preview" class="analyzer__preview-image" />
     </div>
     } @if (previewUrl()) {
     <button
       type="button"
       (click)="analyzeImage()"
       [disabled]="service.analysisResource.isLoading()"
-      class="analyze-btn"
+      class="analyzer__button analyzer__button--analyze"
     >
       Describe Image
     </button>
@@ -31,26 +35,31 @@
   </div>
 
   @if (service.analysisResource.isLoading()) {
-  <div class="loading">
+  <div class="analyzer__loading">
     <p>Analyzing image...</p>
   </div>
   } @if (service.analysisResource.hasValue()) {
-  <div class="result">
-    <h2>Analysis Result</h2>
-    <p>{{ service.analysisResource.value().description }}</p>
-    <div class="metadata">
-      <small
-        >File: {{ service.analysisResource.value().metadata.filename }}</small
-      >
-      <small
-        >Size:
-        {{ formatBytes(service.analysisResource.value().metadata.size) }}</small
-      >
+  <div class="analyzer__result">
+    <h2 class="analyzer__result-title">Analysis Result</h2>
+
+    <p class="analyzer__result-text">
+      {{ service.analysisResource.value().description }}
+    </p>
+
+    <div class="analyzer__metadata">
+      <small>
+        File: {{ service.analysisResource.value().metadata.filename }}
+      </small>
+
+      <small>
+        Size:
+        {{ formatBytes(service.analysisResource.value().metadata.size) }}
+      </small>
     </div>
   </div>
   } @if (service.analysisResource.error()) {
-  <div class="error">
+  <div class="analyzer__error">
     <p>Error: Failed to analyze image. Please try again.</p>
   </div>
   }
-</div>
+</section>

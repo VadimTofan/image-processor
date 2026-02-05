@@ -1,11 +1,8 @@
-import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { signal } from '@angular/core';
 import { httpResource } from '@angular/common/http';
 import type { ImageAnalysisResponse } from './image-analysis.type';
 
 export class ImageAnalysisService {
-  private readonly http = inject(HttpClient);
   private readonly apiUrl = 'http://localhost:3000/api/analyze';
 
   readonly selectedFile = signal<File | null>(null);
